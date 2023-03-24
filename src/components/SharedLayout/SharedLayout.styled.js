@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { NavLink } from 'react-router-dom';
 
-export const StyledNavigation = styled.nav`
+export const StyledSharedLayout = styled.nav`
   margin-bottom: 50px;
   padding-top: 32px;
   padding-bottom: 32px;
