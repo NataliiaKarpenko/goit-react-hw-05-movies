@@ -20,7 +20,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (page === 1) navigate({ ...location, search: `page=1` });
-    return;
+    // return;
   });
 
   useEffect(() => {
