@@ -1,39 +1,46 @@
-// import React from 'react';
-import { NavLink, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
-import { fetchTrendingMovies } from './APIServices/APIServices';
+import { Container } from './Container/Container.jsx';
+import { Loader } from './Loader/Loader';
 
-import { TrendingMoviesGallery } from './MoviesGallery/MoviesGallery';
-import { HomePage } from './Pages/HomePage';
-import { MoviesPage } from './Pages/MoviesPage';
-import { MovieDetailsPage } from './Pages/MovieDetailsPage';
-
-// const [movies, setMovies] = useState([]);
-
-//   async fetchAllGenres() {
-//     const request = '/genre/movie/list';
-//     const allGenresResponse = await axios.get(
-//       `${TMDBApi.URL}${request}?api_key=${TMDBApi.API_KEY}&language=en-US`
-//     );
-//     const { data } = allGenresResponse;
-//     const AllGenresArr = data.genres;
-//     return AllGenresArr;
-//   }
-// }
+const HomePage = lazy(() => import('./Pages/HomePage'));
+const MoviesPage = lazy(() => import('./Pages/MoviesPage'));
+const MovieDetailsPage = lazy(() => import('./Pages/MovieDetailsPage'));
+const CastPage = lazy(() => import('./Pages/CastPage'));
+const ReviewsPage = lazy(() => import('./Pages/ReviewsPage'));
+const Navigation = lazy(() => import('./Navigation/Navigation'));
 
 export const App = () => {
   return (
-    <div>
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/movies">Movies</NavLink>
-      </nav>
-
-      <Routes>
-        <Route index element={<HomePage />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId/" element={<MovieDetailsPage />} />
-      </Routes>
-    </div>
+    <>
+      <Suspense fallback={<Loader />}>
+        {/* <StyledNavigation>
+        <Container>
+          <NavLink className="NavLink" to="/">
+            Home
+          </NavLink>
+          <NavLink className="NavLink" to="/movies">
+            Movies
+          </NavLink>
+        </Container>
+      </StyledNavigation> */}
+        <Navigation />
+        <Container>
+          {/* <Suspense fallback={<Loader />}> */}
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="/movies" element={<MoviesPage />} />
+            <Route path="/movies/:movieId/" element={<MovieDetailsPage />}>
+              <Route path="cast" element={<CastPage />} />
+              <Route path="reviews" element={<ReviewsPage />} />
+            </Route>
+          </Routes>
+          {/* </Suspense> */}
+        </Container>
+      </Suspense>
+    </>
   );
 };
+
+export default App;

@@ -1,14 +1,22 @@
-import { MovieItem } from '../MovieItem/MovieItem';
+import PropTypes from 'prop-types';
 
-export const MoviesGallery = ({ trendingMovies }) => {
+import { MovieItem } from '../MovieItem/MovieItem';
+import { StyledMoviesGalleryContainer } from './MoviesGallery';
+
+export const MoviesGallery = ({ movies, headline }) => {
   return (
-    <div>
-      <h1>Trending today</h1>
+    <StyledMoviesGalleryContainer>
+      <h1>{headline}</h1>
       <ul>
-        {trendingMovies.map(movie => {
+        {movies.map(movie => {
           return <MovieItem key={movie.id} movie={movie} />;
         })}
       </ul>
-    </div>
+    </StyledMoviesGalleryContainer>
   );
+};
+
+MoviesGallery.propTypes = {
+  movies: PropTypes.array,
+  headline: PropTypes.string,
 };

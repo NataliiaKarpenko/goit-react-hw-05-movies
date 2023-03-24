@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledLoader = styled.div`
+  display: flex;
+  justify-content: center;
+
   .lds-ellipsis {
     display: inline-block;
     position: relative;
@@ -13,7 +16,7 @@ export const StyledLoader = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: blue;
+    background: #5e87b8;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .lds-ellipsis div:nth-child(1) {

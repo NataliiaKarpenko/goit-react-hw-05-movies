@@ -3,46 +3,65 @@ import { useParams } from 'react-router-dom';
 
 import { MovieDetails } from '../Moviedetails/MovieDetails';
 import { requestMovieInfo } from '../APIServices/APIServices';
+import { Loader } from 'components/Loader/Loader';
+import { ErrorView } from 'components/ErrorView/ErrorView';
 
-export const MovieDetailsPage = () => {
+const MovieDetailsPage = () => {
+  const [movieDetails, setMovieDetails] = useState({
+    poster_path: '',
+    title: '',
+    releaseYear: 0,
+    voteAverage: 0,
+    overview: '',
+    genres: [],
+  });
+
+  // const [movieDetails, setMovieDetails] = useState(null);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState('idle');
   const { movieId } = useParams();
 
-  const [movieDetails, setMovieDetails] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   useEffect(() => {
-    setIsLoading(true);
+    if (!movieId) return;
 
     const fetchMovieInfo = async movieId => {
       try {
-        const { poster_path, original_title, popularity, overview, genres } =
-          await requestMovieInfo(movieId);
-        console.log(movieDetails);
+        setStatus('pending');
+
+        const {
+          poster_path,
+          title,
+          release_date,
+          vote_average,
+          overview,
+          genres,
+        } = await requestMovieInfo(movieId);
 
         setMovieDetails({
-          src: `https://image.tmdb.org/t/p/w500/${poster_path}`,
-          title: original_title,
-          score: popularity.toFixed(1),
+          poster_path: poster_path,
+          title,
+          releaseYear: new Date(release_date).getFullYear(),
+          voteAverage: Math.round(vote_average * 10),
           overview,
           genres,
         });
-        console.log(movieDetails.overview);
-
-        console.log(movieDetails);
+        setStatus('resolved');
       } catch (error) {
         console.log(error.message);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
+        setError(`❌${error.message}. Try again later, please.`);
+        setStatus('rejected');
       }
     };
     fetchMovieInfo(movieId);
   }, [movieId]);
 
   return (
-    <div>
-      <MovieDetails movieDetails={movieDetails} />
-    </div>
+    <>
+      {status === 'pending' && <Loader />}
+      {status === 'resolved' && <MovieDetails movieDetails={movieDetails} />}
+      {status === 'rejected' && <ErrorView message={error} />}
+    </>
   );
 };
+
+export default MovieDetailsPage;
