@@ -18,10 +18,9 @@ const HomePage = () => {
 
   const page = new URLSearchParams(location.search).get('page') ?? 1;
 
-  // useEffect(() => {
-  //   if (page === 1) navigate({ ...location, search: `page=1` });
-  //   // return;
-  // });
+  useEffect(() => {
+    if (page === 1) navigate({ ...location, search: `page=1` });
+  });
 
   useEffect(() => {
     const fetchTrendingMovies = async page => {
