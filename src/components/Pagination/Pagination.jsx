@@ -1,6 +1,6 @@
 import { Pagination } from '@mui/material';
 
-import { StyledPagination } from '../Pagination.styled';
+import { StyledPagination } from './Pagination.styled';
 
 export const PaginationContainer = ({ count, page, onChange }) => {
   return (
