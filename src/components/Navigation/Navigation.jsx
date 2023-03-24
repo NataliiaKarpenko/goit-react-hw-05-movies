@@ -1,18 +1,16 @@
-import { NavLink } from 'react-router-dom';
-
-import { StyledNavigation } from './Navigation.styled';
+import { StyledNavigation, StyledNavLink } from './Navigation.styled';
 import { Container } from '../Container/Container.jsx';
 
 const Navigation = () => {
   return (
     <StyledNavigation>
       <Container>
-        <NavLink className="NavLink" to="/">
+        <StyledNavLink className="NavLink" to="/">
           Home
-        </NavLink>
-        <NavLink className="NavLink" to="/movies">
+        </StyledNavLink>
+        <StyledNavLink className="NavLink" to="/movies">
           Movies
-        </NavLink>
+        </StyledNavLink>
       </Container>
     </StyledNavigation>
   );
