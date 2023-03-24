@@ -10,6 +10,7 @@ export const StyledSharedLayout = styled.nav`
 `;
 
 export const StyledNavLink = styled(NavLink)`
+  margin-left: 20px;
   color: #113f67;
   font-size: 20px;
   font-weight: 600;
