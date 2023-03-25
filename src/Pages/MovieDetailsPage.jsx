@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { MovieDetails } from '../Moviedetails/MovieDetails';
-import { requestMovieInfo } from '../APIServices/APIServices';
+import { MovieDetails } from '../components/Moviedetails/MovieDetails';
+import { requestMovieInfo } from '../components/APIServices/APIServices';
 import { Loader } from 'components/Loader/Loader';
 import { ErrorView } from 'components/ErrorView/ErrorView';
 

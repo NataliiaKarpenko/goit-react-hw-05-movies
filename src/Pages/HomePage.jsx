@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { PaginationContainer } from '../Pagination/Pagination.jsx';
-import { requestTrendingMovies } from '../APIServices/APIServices';
-import { Loader } from '../Loader/Loader';
-import { MoviesGallery } from '../MoviesGallery/MoviesGallery.jsx';
-import { ErrorView } from '../ErrorView/ErrorView';
+import { PaginationContainer } from '../components/Pagination/Pagination';
+import { requestTrendingMovies } from '../components/APIServices/APIServices';
+import { Loader } from '../components/Loader/Loader';
+import { MoviesGallery } from '../components/MoviesGallery/MoviesGallery';
+import { ErrorView } from '../components/ErrorView/ErrorView';
 
 const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);

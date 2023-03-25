@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import { MovieItem } from '../MovieItem/MovieItem';
-import { StyledMoviesGalleryContainer } from './MoviesGallery';
+import { StyledMoviesGalleryContainer } from './MoviesGallery.styled';
 
 export const MoviesGallery = ({ movies, headline }) => {
   return (

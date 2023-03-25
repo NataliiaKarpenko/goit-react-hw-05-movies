@@ -5,10 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import { SearchBar } from 'components/SearchBar/SearchBar';
 import { SearchView } from 'components/SearchView/SearchView';
 import { ErrorView } from 'components/ErrorView/ErrorView';
-import { requestMoviesByQuery } from '../APIServices/APIServices';
+import { requestMoviesByQuery } from '../components/APIServices/APIServices';
 import { MoviesGallery } from 'components/MoviesGallery/MoviesGallery.jsx';
 import { Loader } from 'components/Loader/Loader';
-import { PaginationContainer } from '../Pagination/Pagination.jsx';
+import { PaginationContainer } from '../components/Pagination/Pagination.jsx';
 
 const MoviesPage = () => {
   const [query, setQuery] = useState('');

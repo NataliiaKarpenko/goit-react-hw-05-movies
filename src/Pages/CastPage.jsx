@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
-import { requestMovieCredits } from '../APIServices/APIServices';
-import { Cast } from '../Cast/Cast';
-import { Loader } from '../Loader/Loader';
-import { ErrorView } from '../ErrorView/ErrorView';
+import { requestMovieCredits } from '../components/APIServices/APIServices';
+import { Cast } from '../components/Cast/Cast';
+import { Loader } from '../components/Loader/Loader';
+import { ErrorView } from '../components/ErrorView/ErrorView';
 
 const CastPage = () => {
   const [cast, setCast] = useState([]);

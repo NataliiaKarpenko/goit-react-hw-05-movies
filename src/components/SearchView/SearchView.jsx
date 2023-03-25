@@ -1,5 +1,5 @@
 import movies from '../../images/movies.jpeg';
-import { StyledSearchView } from './Search.styled';
+import { StyledSearchView } from './SearchView.styled';
 
 export const SearchView = () => {
   return (

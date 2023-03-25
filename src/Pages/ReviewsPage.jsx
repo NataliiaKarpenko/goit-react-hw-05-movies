@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
-import { requestMovieReviews } from '../APIServices/APIServices';
-import { Reviews } from '../Reviews/Reviews.jsx';
-import { Loader } from '../Loader/Loader';
-import { ErrorView } from '../ErrorView/ErrorView';
-import { PaginationContainer } from '../Pagination/Pagination.jsx';
+import { requestMovieReviews } from '../components/APIServices/APIServices';
+import { Reviews } from '../components/Reviews/Reviews.jsx';
+import { Loader } from '../components/Loader/Loader';
+import { ErrorView } from '../components/ErrorView/ErrorView';
+import { PaginationContainer } from '../components/Pagination/Pagination.jsx';
 
 const ReviewsPage = () => {
   const [reviews, setReviews] = useState([]);
