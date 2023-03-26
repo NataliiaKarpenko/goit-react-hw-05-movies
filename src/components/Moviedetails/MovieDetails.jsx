@@ -12,7 +12,7 @@ export const MovieDetails = ({ movieDetails }) => {
   const backlinkHref = location.state?.from ?? '/movies';
 
   const handleBtnClick = () => {
-    navigate(backlinkHref ?? '/');
+    navigate(backlinkHref ?? '/', { replace: true });
   };
 
   return (

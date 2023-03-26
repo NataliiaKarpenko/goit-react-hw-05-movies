@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { SearchBar } from 'components/SearchBar/SearchBar';
@@ -17,27 +17,20 @@ const MoviesPage = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('idle');
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const page = new URLSearchParams(location.search).get('page') ?? 1;
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const queryValue = searchParams.get('query');
+  const page = searchParams.get('page');
 
   useEffect(() => {
-    if (location.search === '') {
-      return;
-    }
-
-    const newQuery = new URLSearchParams(location.search).get('query');
-    setQuery(newQuery, page);
-  }, [location.search, page]);
-
-  useEffect(() => {
-    const fetchMoviesByQuery = async (query, page) => {
-      if (!query) {
+    const fetchMoviesByQuery = async queryValue => {
+      if (!queryValue) {
         return;
       }
       try {
         setStatus('pending');
-        const moviesByQuery = await requestMoviesByQuery(query, page);
+
+        const moviesByQuery = await requestMoviesByQuery(queryValue, page);
 
         if (moviesByQuery.results.length === 0) {
           toast.warning(
@@ -61,8 +54,8 @@ const MoviesPage = () => {
       }
     };
 
-    fetchMoviesByQuery(query, page);
-  }, [query, page]);
+    fetchMoviesByQuery(queryValue);
+  }, [queryValue, page]);
 
   const onFormSubmit = keyword => {
     if (query === keyword) {
@@ -71,11 +64,11 @@ const MoviesPage = () => {
     setQuery(keyword);
     setMoviesByQuery([]);
     setError(null);
-    navigate({ ...location, search: `query=${keyword}&page=1` });
+    setSearchParams({ query: keyword, page: '1' });
   };
 
   const onHandlePage = (event, page) => {
-    navigate({ ...location, search: `query=${query}&page=${page}` });
+    setSearchParams({ query: queryValue, page });
   };
 
   return (
@@ -96,6 +89,8 @@ const MoviesPage = () => {
           count={totalPages}
           onChange={onHandlePage}
           page={Number(page)}
+          showFirstButton
+          showLastButton
         />
       )}
     </>

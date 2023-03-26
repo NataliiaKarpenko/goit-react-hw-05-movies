@@ -55,7 +55,7 @@ export const requestMovieCredits = async id => {
   return moviesCreditsArr;
 };
 
-export const requestMovieReviews = async (id, page = 1) => {
+export const requestMovieReviews = async (id, page) => {
   // https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=<<api_key>>&language=en-US&page=1
   const movieReviewsResponse = await axios.get(
     `${URL}${REQUEST.movie}/${id}${REQUEST.reviews}?api_key=${API_KEY}&${REQUEST.lang}&page=${page}`

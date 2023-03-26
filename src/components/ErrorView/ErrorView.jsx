@@ -13,5 +13,5 @@ export const ErrorView = ({ message }) => {
 };
 
 ErrorView.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };

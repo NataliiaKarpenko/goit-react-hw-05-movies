@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { PaginationContainer } from '../components/Pagination/Pagination';
 import { requestTrendingMovies } from '../components/APIServices/APIServices';
@@ -10,22 +10,19 @@ import { ErrorView } from '../components/ErrorView/ErrorView';
 const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
+
   const [status, setStatus] = useState('pending');
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const page = new URLSearchParams(location.search).get('page') ?? 1;
-
-  useEffect(() => {
-    if (page === 1) navigate({ ...location, search: `page=1` });
-  });
+  const page = searchParams.get('page') ?? 1;
 
   useEffect(() => {
-    const fetchTrendingMovies = async page => {
+    const fetchTrendingMovies = async currentPage => {
       try {
-        const trendingMovies = await requestTrendingMovies(page);
+        const trendingMovies = await requestTrendingMovies(currentPage);
+
         setTrendingMovies(trendingMovies.results);
         setTotalPages(trendingMovies.total_pages);
         setStatus('resolved');
@@ -37,10 +34,10 @@ const HomePage = () => {
     };
 
     fetchTrendingMovies(page);
-  }, [page]);
+  }, [page, setSearchParams]);
 
-  const onHandlePage = (event, page) => {
-    navigate({ ...location, search: `page=${page}` });
+  const onHandlePage = (event, newPage) => {
+    setSearchParams({ page: newPage });
   };
 
   return (
@@ -55,6 +52,8 @@ const HomePage = () => {
           count={totalPages}
           onChange={onHandlePage}
           page={Number(page)}
+          showFirstButton
+          showLastButton
         />
       )}
     </>
